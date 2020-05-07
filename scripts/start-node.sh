@@ -1,11 +1,6 @@
 #!/bin/bash
 
-if [ $# == 0 ]; then
-#jj echo "Please input node name"
-#   exit 0
-#fi
-
-SRC="$GOPATH/src/github.com/hdac-io/friday"
+SRC="$GOPATH/src/friday"
 rm -rf $HOME/.nodef/config
 rm -rf $HOME/.nodef/data
 rm -rf $HOME/.clif
@@ -30,7 +25,7 @@ done
 $SRC/CasperLabs/execution-engine/target/release/casperlabs-engine-grpc-server -t 8 $HOME/.casperlabs/.casper-node.sock&
 
 # init node
-nodef init node1 --chain-id testnet
+nodef init testnode --chain-id testnet
 
 sed -i "s/prometheus = false/prometheus = true/g" ~/.nodef/config/config.toml
 
@@ -57,7 +52,7 @@ do
 done
 
 # add genesis node
-nodef load-chainspec ~/.nodef/config/manifest.toml
+nodef load-chainspec $HOME/.nodef/config/manifest.toml
 
 # apply default clif configure
 clif config chain-id testnet
@@ -78,4 +73,4 @@ nodef collect-gentxs
 nodef validate-genesis
 
 cat $HOME/.nodef/config/genesis.json | jq .app_state.genutil.gentxs[0].value.memo > address.txt
-nodef start
+nodef start > result.txt
