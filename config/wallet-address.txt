@@ -1,0 +1,6 @@
+{
+  "name": "node1",
+  "type": "local",
+  "address": "friday1720erncshu535akemn6audpuv9cst7sde3t8kz",
+  "pubkey": "fridaypub1addwnpepqdnjjet7qa36e4j0yl6mcu08fr8n6cx9syarfend5hkelqy5ckvxsmlw0yc"
+}
