@@ -36,20 +36,17 @@ cp $SRC/x/executionlayer/resources/manifest.toml ~/.nodef/config
 
 PW="12345678"
 
-for i in {1..100}
-do
-    expect -c "
-    set timeout 3
-    spawn clif keys add node$i
-    expect "disk:"
-        send \"$PW\\r\"
-    expect "passphrase:"
-        send \"$PW\\r\"
-    expect eof
-    "
-    nodef add-genesis-account $(clif keys show node$i -a) 100000000stake
-    nodef add-el-genesis-account node$i "1000000000000000000000000000" "1000000000000000000"
-done
+expect -c "
+set timeout 3
+spawn clif keys add node1
+expect "disk:"
+send \"$PW\\r\"
+expect "passphrase:"
+send \"$PW\\r\"
+expect eof
+"
+nodef add-genesis-account $(clif keys show node1 -a) 100000000stake
+nodef add-el-genesis-account node1 "100000000000000000000000000000000000000" "1000000000000000000"
 
 # add genesis node
 nodef load-chainspec $HOME/.nodef/config/manifest.toml
@@ -73,4 +70,4 @@ nodef collect-gentxs
 nodef validate-genesis
 
 cat $HOME/.nodef/config/genesis.json | jq .app_state.genutil.gentxs[0].value.memo > address.txt
-nodef start > nodef.txt
+#nodef start > nodef.txt
