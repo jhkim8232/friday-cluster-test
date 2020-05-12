@@ -1,0 +1,29 @@
+apiVersion: v1
+
+kind: Pod
+metadata:
+  name: hdac-node
+  labels:
+    role: hdac-node
+spec:
+  containers:
+    - name: hdac-node
+      image: buryeye7/hdac-node:latest
+      command: ["./scripts/start-seed.sh"]
+      ports:
+        - name: rpc
+          containerPort: 26657
+          protocol: TCP
+        - name: network
+          containerPort: 26656
+          protocol: TCP
+        - name: clif
+          containerPort: 1317
+          protocol: TCP
+        - name: prometheus
+          containerPort: 26660
+          protocol: TCP
+  restartPolicy: Never
+    
+
+

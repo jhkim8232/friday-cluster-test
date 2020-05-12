@@ -47,12 +47,12 @@ clif config output json
 clif config indent true
 clif config trust-node true
 
-cp -f $GOPATH/src/friday-cluster-test/kubefiles/node-config/nodef-config/config/config.toml $HOME/.nodef/config/config.toml
-cp -f $GOPATH/src/friday-cluster-test/kubefiles/node-config/nodef-config/config/manifest.toml $HOME/.nodef/config/manifest.toml
+cp -f $GOPATH/src/friday-cluster-test/kubefiles/node-config/nodef-config/config/genesis.json $HOME/.nodef/config
+cp -f $GOPATH/src/friday-cluster-test/kubefiles/node-config/nodef-config/config/genesis.json $HOME/.nodef/config
 #SEED=$(cat $HOME/.nodef/config/genesis.json | jq .app_state.genutil.gentxs[0].value.memo)
 SEED=$(curl http://admin:admin@13.125.228.37:5984/seed-info/seed-info | jq .target)
-sed -i "s/seeds = \"\"/seeds = $SEED/g" ~/.nodef/config/config.toml
-sed -i "s/prometheus = false/prometheus = true/g" ~/.nodef/config/config.toml
+sed -i "s/seeds = \"\"/seeds = $SEED/g" $HOME/.nodef/config/config.toml
+sed -i "s/prometheus = false/prometheus = true/g" $HOME/.nodef/config/config.toml
 
 WALLET_ADDRESS=$(clif keys show node1 -a)
 NODE_PUB_KEY=$(nodef tendermint show-validator)
