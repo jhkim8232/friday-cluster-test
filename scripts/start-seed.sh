@@ -1,5 +1,6 @@
 #!/bin/bash
 
+COUCHDB="http://admin:admin@13.125.228.37:5984"
 SRC="$GOPATH/src/friday"
 
 ps -ef | grep grpc | while read line
@@ -24,6 +25,8 @@ $SRC/CasperLabs/execution-engine/target/release/casperlabs-engine-grpc-server -t
 WALLET_ADDRESS=$(clif keys show node1 -a)
 NODE_PUB_KEY=$(nodef tendermint show-validator)
 NODE_ID=$(nodef tendermint show-node-id)
-curl -X PUT $COUCHDB/wallet-address/$WALLET_ADDRESS -d "{\"type\":\"seed-node\",\"node-pub-key\":\"$NODE_PUB_KEY\",\"node-id\":\"$NODE_ID\"}"
+IP_ADDRESS=$(hostname -I)
+curl -X PUT $COUCHDB/wallet-address/$WALLET_ADDRESS -d "{\"type\":\"seed-node\",\"node-pub-key\":\"$NODE_PUB_KEY\",\"node-id\":\"$NODE_ID\",\"ip-address\":\"$IP_ADDRESS\"}"
+curl -X PUT $COUCHDB/seed-info/seed-info -d "{\"target\":\"$NODE_ID@$IP_ADDRESS:26656\"}"
 
 nodef start > nodef.txt
