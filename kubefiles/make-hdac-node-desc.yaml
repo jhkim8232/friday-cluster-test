@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if [ $# == 0 ];then
+    echo "Please number of hdac nodes"
+    exit 0
+fi
+
+for i in $(seq 1 $1)
+do
+    cat hdac-node-template.yaml | sed -e "s/{NO}/$i/g" > hdac-node$i.yaml
+done

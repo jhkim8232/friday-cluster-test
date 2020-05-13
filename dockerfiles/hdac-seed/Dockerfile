@@ -17,8 +17,8 @@ RUN rm -rf $HOME/.nodef
 RUN rm -rf $HOME/.clif
 RUN mkdir -p $HOME/.nodef
 RUN mkdir -p $HOME/.clif
-RUN cp -rf kubefiles/node-config/nodef-config/* $HOME/.nodef
-RUN cp -rf kubefiles/node-config/clif-config/* $HOME/.clif
+RUN cp -rf config/node-config/nodef-config/* $HOME/.nodef
+RUN cp -rf config/node-config/clif-config/* $HOME/.clif
 
 EXPOSE 26656/tcp
 EXPOSE 26657/tcp
