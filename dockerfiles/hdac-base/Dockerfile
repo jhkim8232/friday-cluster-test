@@ -11,6 +11,8 @@ RUN yum -y update
 RUN yum -y upgrade
 RUN yum -y install expect
 RUN yum -y install vim 
+RUN yum -y install telnet
+RUN yum -y install net-tools 
 
 WORKDIR $GOPATH/src
 RUN git clone https://github.com/hdac-io/friday
