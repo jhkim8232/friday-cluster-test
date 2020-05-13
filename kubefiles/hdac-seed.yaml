@@ -1,37 +1,31 @@
-apiVersion: v1
-
-kind: Pod
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: hdac-seed
-  labels:
-    role: hdac-seed
 spec:
-  containers:
-    - name: hdac-seed
-      image: buryeye7/hdac-seed:latest
-      command: ["./scripts/start-seed.sh"]
-      #command: ["/bin/bash"]
-      volumeMounts:
-        - name: node-config
-          mountPath: /root/node-config
-      ports:
-        - name: rpc
-          containerPort: 26657
-          protocol: TCP
-        - name: network
-          containerPort: 26656
-          protocol: TCP
-        - name: clif
-          containerPort: 1317
-          protocol: TCP
-        - name: prometheus
-          containerPort: 26660
-          protocol: TCP
-  volumes:
-    - name: node-config
-      configMap:
-        name: node-config 
-  restartPolicy: Never
-    
-
-
+  selector:
+    matchLabels:
+      run: hdac-seed
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: hdac-seed
+    spec:
+      containers:
+        - name: hdac-seed
+          image: buryeye7/hdac-seed:latest
+          command: ["./scripts/start-seed.sh"]
+          ports:
+            - name: rpc
+              containerPort: 26657
+              protocol: TCP
+            - name: network
+              containerPort: 26656
+              protocol: TCP
+            - name: clif
+              containerPort: 1317
+              protocol: TCP
+            - name: prometheus
+              containerPort: 26660
+              protocol: TCP
