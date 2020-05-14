@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: hdac-node
+  name: hdac-node5
 spec:
   selector:
     matchLabels:
-      run: hdac-node
+      run: hdac-node5
   replicas: 1
   template:
     metadata:
       labels:
-        run: hdac-node
+        run: hdac-node5
     spec:
       containers:
-        - name: hdac-node
+        - name: hdac-node5
           image: buryeye7/hdac-node:latest
           command: ["./scripts/start-node.sh"]
           ports:
