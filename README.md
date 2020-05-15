@@ -12,11 +12,11 @@ Procedure
 
 2. Run "./kubefiles/make-hdac-node-desc.sh {NO}", which you have to replace {NO} to the number of hdac-nodes except seed node. 
 
-3. Run "kubectl get nodes", select the k8s node on which Grafana is going to run and replace the nodeName in kubefiles/grafana/grafana.yaml with selected one.
+3. Run "kubectl get nodes", select the k8s node on which Grafana, Prometheus is going to run and replace the nodeName in kubefiles/grafana/grafana.yaml, kubefiles/prometheus/prometheus.yaml with selected one.
 
 4. Run "./kubefiles/deploy-node.sh"
 
-5. Access the public IP address of the k8s node on which Grafana container is running with the port 3000. 
+5. Access the public IP address of the k8s node on which Grafana container is running with the port 30300. 
 
 If all procedures are successful, you will see the Grafana screen.
 
